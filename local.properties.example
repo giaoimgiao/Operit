@@ -1,0 +1,4 @@
+# This is a template for your local.properties file.
+# To build the project, copy this file to local.properties (which is gitignored)
+# and fill in local SDK or signing values when needed.
+# GitHub OAuth credentials are managed by the Operit authentication service.
