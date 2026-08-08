@@ -1,0 +1,15 @@
+# 构建产物
+dist/
+build/
+*.spec
+__pycache__/
+
+# 本地账号数据（勿提交！含 token）
+ugirl_app_accounts.json
+ugirl_idx_*.json
+ugirl_host_index.json
+*_token*.txt
+*.log
+
+# 其他测试资产
+ssrf_daemon.log

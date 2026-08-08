@@ -1,0 +1,43 @@
+name: Build UGIRL CDN App
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - os: windows-latest
+            artifact_name: ugirl-cdn-app-windows-x64
+            exe: ugirl-cdn-app.exe
+          - os: ubuntu-latest
+            artifact_name: ugirl-cdn-app-linux-x64
+            exe: ugirl-cdn-app
+          - os: macos-latest
+            artifact_name: ugirl-cdn-app-macos-x64
+            exe: ugirl-cdn-app
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install PyInstaller
+        run: pip install pyinstaller
+
+      - name: Build
+        run: pyinstaller --onefile --name ugirl-cdn-app ugirl_cdn_app.py
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact_name }}
+          path: dist/${{ matrix.exe }}
+          if-no-files-found: error
