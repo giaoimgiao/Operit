@@ -15,7 +15,10 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib.parse import urlparse, parse_qs
 
 BASE = "https://backend.ugirl.vip/api/v1"
-DATA_DIR = os.path.dirname(os.path.abspath(__file__))
+if getattr(sys, "frozen", False):
+    DATA_DIR = os.path.dirname(sys.executable)
+else:
+    DATA_DIR = os.path.dirname(os.path.abspath(__file__))
 ACC_FILE = os.path.join(DATA_DIR, "ugirl_app_accounts.json")
 PORT = int(os.environ.get("UG_APP_PORT", "8866"))
 UA = "ugirl-cdn-app/2.0"
